@@ -13,10 +13,12 @@ function operate(operator, a, b) {
     if (operator == '/') return divide(a, b);
 }
 
-const button = document.querySelectorAll('button');
+const number = document.querySelectorAll('.number');
+const display_operation = document.querySelector('.operation')
 
-for (let i = 0; i < button.length; i++) {
-    button[i].addEventListener('click', () => {
-        console.log(button[i].innerText)
+for (let i = 0; i < number.length; i++) {
+    number[i].addEventListener('click', () => {
+        let display_value = number[i].innerText
+        display_operation.innerText = display_value
     })
 }
