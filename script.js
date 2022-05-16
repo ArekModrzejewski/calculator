@@ -13,9 +13,14 @@ function operate(operator, a, b) {
     if (operator == '/') return divide(a, b);
 }
 const clear = document.querySelector('.clear')
+const backspace = document.querySelector('.backspace')
 const number = document.querySelectorAll('.number')
 const display_operation = document.querySelector('.operation')
 const display_result = document.querySelector('.result')
+
+backspace.addEventListener('click', () => {
+    display_result.innerText = display_result.innerText.slice(0, -1)
+})
 
 clear.addEventListener('click', () => {
     display_operation.innerText = ''
@@ -25,6 +30,6 @@ clear.addEventListener('click', () => {
 for (let i = 0; i < number.length; i++) {
     number[i].addEventListener('click', () => {
         let display_value = number[i].innerText
-        display_operation.innerText += display_value
+        display_result.innerText += display_value
     })
 }
