@@ -2,6 +2,8 @@ const clear = document.querySelector('.clear')
 const backspace = document.querySelector('.backspace')
 const numbers = document.querySelectorAll('.number')
 const operators = document.querySelectorAll('.operator')
+const equals = document.querySelector('.equals')
+const dot = document.querySelector('.dot')
 const display_operation = document.querySelector('.operation')
 const display_result = document.querySelector('.result')
 let clear_result = true;
@@ -44,16 +46,37 @@ numbers.forEach((number) => {
 operators.forEach((button) => {
     button.addEventListener('click', () => {
 
-        if (display_operation.innerText.slice(-1) == button.innerHTML) {
+        if (display_operation.innerText.slice(-1) == button.innerText) {          
             let a = Number(display_operation.innerText.slice(0, -2))
             let b = Number(display_result.innerText)
             let operator = display_operation.innerText.slice(-1)
+            if (button.innerText == '/' && b == 0) {alert('You can\'t divide by zero')}
+            else {
             display_result.innerText = operate(operator, a, b)
-            display_operation.innerText = operate(operator, a, b) + ' ' + operator
-        } else if (display_operation.innerText == '') {
+            display_operation.innerText = operate(operator, a, b) + ' ' + operator}
+        }
+        else if (display_operation.innerText == '') {
             display_operation.innerText = display_result.innerText + ' ' + button.innerText
-        } else { display_operation.innerText = display_operation.innerText.slice(0, -1) + button.innerText }
-
+        }
+        else if (display_operation.innerText.slice(-1) == '=') {
+            display_operation.innerText = display_result.innerText + ' ' + button.innerText
+        }
+        else {
+            display_operation.innerText = display_operation.innerText.slice(0, -1) + button.innerText
+        }
         clear_result = true
     })
+})
+
+equals.addEventListener('click', () => {
+    if (display_operation.innerText != '' && display_operation.innerText.slice(-1) != '=') {
+        let a = Number(display_operation.innerText.slice(0, -2))
+        let b = Number(display_result.innerText)
+        let operator = display_operation.innerText.slice(-1)
+        if (operator == '/' && b == 0) {alert('You can\'t divide by zero')}
+        else {
+        display_operation.innerText = `${a} ${operator} ${b} = `
+        display_result.innerText = operate(operator, a, b)}
+    }
+
 })
